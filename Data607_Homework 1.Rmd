@@ -1,0 +1,74 @@
+---
+title: "Homework 1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(dplyr)
+
+```
+
+Load mushroom dataset
+```{r}
+mushroom_data <- data.frame(read.csv(url("https://archive.ics.uci.edu/ml/machine-learning-databases/mushroom/agaricus-lepiota.data"),header=F, stringsAsFactors = FALSE))
+```
+
+Add column names to imported data
+```{r}
+names(mushroom_data) <- c("class","cap-shape","cap-surface","cap-color","bruises","odor","gill-attachment","gil-spacing","gill-size","gill-color","stalk-shape","stalk-root","stalk-surface-above-ring","stalk-surface-below-ring","stalk-color-above-ring","stalk-color-below-ring","veil-type","veil-color","ring-number","ring-type","spore-print-color","population","habitat")
+```
+
+Create subset of mushroom data using the class (poisonous or edible) and a few other columns
+```{r}
+mushroom_subset <- select(mushroom_data, "class", "cap-shape", "cap-surface", "cap-color", "bruises", "odor")
+```
+
+
+Replacing field values for all columns in new subset
+```{r}
+mushroom_subset$class[mushroom_subset$class == "p"] <- "poisonous"
+mushroom_subset$class[mushroom_subset$class == "e"] <- "edible"
+mushroom_subset$`cap-shape`[mushroom_subset$`cap-shape` == "b"] <- "bell"
+mushroom_subset$`cap-shape`[mushroom_subset$`cap-shape` == "c"] <- "conical"
+mushroom_subset$`cap-shape`[mushroom_subset$`cap-shape` == "x"] <- "convex"
+mushroom_subset$`cap-shape`[mushroom_subset$`cap-shape` == "f"] <- "flat"
+mushroom_subset$`cap-shape`[mushroom_subset$`cap-shape` == "k"] <- "knobbed"
+mushroom_subset$`cap-shape`[mushroom_subset$`cap-shape` == "s"] <- "sunken"
+mushroom_subset$`cap-surface`[mushroom_subset$`cap-surface` == "f"] <- "fibrous"
+mushroom_subset$`cap-surface`[mushroom_subset$`cap-surface` == "g"] <- "grooves"
+mushroom_subset$`cap-surface`[mushroom_subset$`cap-surface` == "y"] <- "scaly"
+mushroom_subset$`cap-surface`[mushroom_subset$`cap-surface` == "s"] <- "smooth"
+mushroom_subset$`cap-color`[mushroom_subset$`cap-color` == "n"] <- "brown"
+mushroom_subset$`cap-color`[mushroom_subset$`cap-color` == "b"] <- "buff"
+mushroom_subset$`cap-color`[mushroom_subset$`cap-color` == "c"] <- "cinnamon"
+mushroom_subset$`cap-color`[mushroom_subset$`cap-color` == "g"] <- "grey"
+mushroom_subset$`cap-color`[mushroom_subset$`cap-color` == "r"] <- "green"
+mushroom_subset$`cap-color`[mushroom_subset$`cap-color` == "p"] <- "pink"
+mushroom_subset$`cap-color`[mushroom_subset$`cap-color` == "u"] <- "purple"
+mushroom_subset$`cap-color`[mushroom_subset$`cap-color` == "e"] <- "red"
+mushroom_subset$`cap-color`[mushroom_subset$`cap-color` == "w"] <- "white"
+mushroom_subset$`cap-color`[mushroom_subset$`cap-color` == "y"] <- "yellow"
+mushroom_subset$bruises[mushroom_subset$bruises == "t"] <- "bruises"
+mushroom_subset$bruises[mushroom_subset$bruises == "f"] <- "no"
+mushroom_subset$odor[mushroom_subset$odor == "a"] <- "almond"
+mushroom_subset$odor[mushroom_subset$odor == "l"] <- "anise"
+mushroom_subset$odor[mushroom_subset$odor == "c"] <- "creosote"
+mushroom_subset$odor[mushroom_subset$odor == "y"] <- "fishy"
+mushroom_subset$odor[mushroom_subset$odor == "f"] <- "foul"
+mushroom_subset$odor[mushroom_subset$odor == "m"] <- "musty"
+mushroom_subset$odor[mushroom_subset$odor == "n"] <- "none"
+mushroom_subset$odor[mushroom_subset$odor == "p"] <- "pugnent"
+mushroom_subset$odor[mushroom_subset$odor == "s"] <- "spicy"
+```
+
+Check mushroom subset to make sure all column names and values are correct
+```{r}
+mushroom_subset
+```
+
